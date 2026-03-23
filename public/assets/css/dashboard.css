@@ -1,0 +1,178 @@
+/* ============ MAIN PAGE =============== */
+.page main {
+    padding: 20px;
+}
+
+h2{
+    margin-bottom: 10px;
+}
+
+/* =========== DASHBOARD CARDS WRAPPER =============== */
+.dashboard-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: stretch; /* toutes les cartes prennent la hauteur du plus grand */
+    margin-bottom: 30px;
+}
+
+/* ============= EMPLOYEE ============= */
+.employee-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    width: 260px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    transition: transform 0.2s ease;
+}
+
+.employee-avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.employee-info {
+    text-align: center;
+}
+
+.employee-info h3 {
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.employee-info p {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+/* ============ CAR ================ */
+.car-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    width: 260px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    transition: transform 0.2s ease;
+}
+
+/* Bandeau de statut en haut de la carte */
+.car-card::before {
+    content: '';
+    display: block;
+    height: 6px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #e74c3c; /* rouge par défaut */
+}
+
+.car-card[data-assigned="true"]::before {
+    background-color: #27ae60; /* vert si attribuée */
+}
+
+/* Plaque d'immatriculation */
+.car-plate {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border: 3px solid #000;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.car-plate img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+.plate-number {
+    flex: 1;
+    text-align: center;
+    letter-spacing: 1px;
+    color: #000;
+}
+
+/* Infos voiture */
+.car-info {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.car-info h3 {
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.car-info p {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+/* ========== CHARTS =============== */
+.charts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.charts .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 15px;
+    flex: 1 1 260px;
+    max-width: 260px; /* limite l'étirement */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.charts .card-header {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+canvas {
+    width: 200px !important;
+    height: 200px !important; /* taille fixe pour éviter l'étirement */
+}
+
+/* ============ RESPONSIVE =============== */
+@media (max-width: 768px) {
+    .dashboard-cards,
+    .charts {
+        justify-content: center;
+    }
+
+    .employee-card,
+    .car-card,
+    .charts .card {
+        width: 90%;
+    }
+}

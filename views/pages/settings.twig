@@ -1,0 +1,70 @@
+{% extends "../layouts/base.twig" %}
+
+{% block style %}
+    <link rel="stylesheet" href="/assets/css/home.css">
+    <link rel="stylesheet" href="/assets/css/settings.css">
+{% endblock %}
+
+{% block title %}
+    <title>Paramètres</title>
+{% endblock %}
+
+{% block main %}
+<div class="page">
+    {% include "../partials/sidebar.twig" %}
+
+    <main>
+        
+
+        <div class="company-card">
+        <h2>Votre Entreprise</h2>
+
+            <div class="company-info">
+                <p><strong>Raison sociale :</strong> {{ infos.raisonSociale }}</p>
+                <p><strong>SIRET :</strong> {{ infos.siret }}</p>
+                <p><strong>Responsable :</strong> {{ infos.headName ?? "Non renseigné" }}</p>
+            </div>
+
+            <div class="company-actions">
+                <button id="toggle-edit-form" class="edit-btn">✏ Modifier</button>
+
+                <form action="/unregister" method="POST" class="delete-company-form">
+                    <button type="submit" class="delete-btn">🗑 Supprimer</button>
+                </form>
+            </div>
+
+            <!-- Formulaire de modification caché -->
+            <form id="company-edit-form" action="/update" method="POST">
+                <div class="form-group">
+                    <label for="raisonSociale">Raison sociale</label>
+                    <input type="text" id="raisonSociale" name="raisonSociale" value="{{ infos.raisonSociale }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="siret">SIRET</label>
+                    <input type="text" id="siret" name="siret" value="{{ infos.siret }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="headName">Responsable</label>
+                    <input type="text" id="headName" name="headName" value="{{ infos.headName }}">
+                </div>
+                <div class="form-group">
+                    <label for="password">Nouveau mot de passe</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••">
+                </div>
+                <button type="submit" class="submit-btn">Sauvegarder</button>
+            </form>
+        </div>
+
+    </main>
+</div>
+
+<script>
+    // Déploiement du formulaire
+    const toggleBtn = document.getElementById('toggle-edit-form');
+    const editForm = document.getElementById('company-edit-form');
+
+    toggleBtn.addEventListener('click', () => {
+        editForm.classList.toggle('expanded');
+    });
+</script>
+{% endblock %}

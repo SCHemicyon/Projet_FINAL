@@ -1,0 +1,153 @@
+/* Import font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+/* Header principal */
+header {
+    background-color: rgb(45, 45, 45);
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* logo à gauche, infos à droite */
+    padding: 0 20px;
+    height: 80px;
+    font-family: 'Montserrat', sans-serif;
+    position: relative; /* nécessaire pour centrer le titre absolu */
+}
+
+/* Logo à gauche */
+header .logo-container {
+    flex-shrink: 0;
+    height: 60px;
+    width: 150px;
+}
+
+header .logo-container img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+/* Titre centré */
+header .title-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: white;
+    max-width: calc(100% - 220px); /* laisse de l’espace pour logo et infos */
+}
+
+header .title-container h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    white-space: nowrap; /* empêche le retour à la ligne */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+header .title-container p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* Bloc infos à droite */
+header .infos-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 8px;
+    padding: 5px 12px;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+header .infos-container h3 {
+    margin: 0;
+    font-size: 14px;
+}
+
+header .infos-container p {
+    margin: 0;
+    color: #999;
+    font-size: 12px;
+}
+
+header .infos-container a {
+    font-size: 14px;
+    color: #D0363B;
+    text-decoration: none;
+    display: block;
+    /* margin-top: 5px; */
+}
+
+header .infos-container a:hover {
+    text-decoration: underline;
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+    header {
+        padding: 0 10px;
+    }
+
+    header .logo-container {
+        height: 50px;
+        width: 120px;
+    }
+
+    header .title-container h1 {
+        font-size: 20px;
+    }
+
+    header .title-container p {
+         display: none;
+    }
+
+    header .infos-container h3 {
+        font-size: 12px;
+    }
+
+    header .infos-container p {
+        font-size: 10px;
+    }
+
+    header .infos-container a {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    
+    header {
+        padding: 5px 10px;
+        height: auto;
+    }
+
+    header .logo-container {
+        height: 45px;
+        width: 100px;
+    }
+
+    header .title-container h1 {
+        font-size: 16px;
+    }
+
+    header .title-container p {
+        display: none; /* masque le sous-titre sur très petit écran */
+    }
+
+    header .infos-container h3 {
+        font-size: 10px;
+    }
+
+    header .infos-container p {
+        font-size: 8px;
+    }
+
+    header .infos-container a {
+        font-size: 8px;
+    }
+}

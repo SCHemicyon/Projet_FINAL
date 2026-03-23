@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="/assets/css/base.css">
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+		{% block title %}
+			<title>Accueil</title>
+		{% endblock %}
+		{% block style %}{% endblock %}
+	</head>
+	<body>
+		{% include "../partials/header.twig" %}
+
+		{% block main %}
+			<main>
+				<p>Bonjour</p>
+			</main>
+		{% endblock %}
+		{% include "../partials/footer.twig" %}
+
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+		{% block script %}
+			{% if error %}
+				<script>
+					Toastify({
+text: "{{ error.msg }}",
+duration: 5000,
+style: {
+background: "#D0363B"
+}
+}).showToast();
+				</script>
+			{% endif %}
+		{% endblock %}
+
+	</body>
+</html>

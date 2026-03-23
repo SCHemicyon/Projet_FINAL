@@ -1,0 +1,61 @@
+{% extends "../layouts/base.twig" %}
+{% block title %}
+	<title>{{title}}</title>
+{% endblock %}
+{% block style %}
+	<link rel="stylesheet" href="/assets/css/register.css">
+{% endblock %}
+
+{% block main %}
+	<main>
+		<form action="/register" method="post">
+
+			<h2>INSCRIPTION</h2>
+			<div>
+				<label for="raisonSociale">Raison Sociale : *</label>
+				<input type="text" name="raisonSociale" id="raisonSociale" placeholder="Raison Sociale" required>
+			</div>
+			<div>
+				<label for="siret">Siret : *</label>
+				<input type="text" name="siret" id="siret" placeholder="14 chiffres" required>
+			</div>
+			{% if error %}
+				<div class="error">
+					{{error.msg}}
+				</div>
+
+			{% endif %}
+			<div>
+				<label for="password">Mot de passe : *</label>
+				<input type="password" name="password" id="password" placeholder="🔒 | Mot de passe" required>
+			</div>
+			<div>
+				<input type="password" name="confirmPassword" id="confirmPassword" placeholder="🔒 | Confirmez votre Mot de passe" required>
+			</div>
+			<div>
+				<label for="headName">Nom du directeur :</label>
+				<input type="text" name="headName" id="headName" placeholder="Nom du directeur">
+			</div>
+			<div>
+				<p class="required">* champs obligatoires</p>
+			</div>
+			{% if error %}
+				<div class="error">
+					{{error.msg}}
+				</div>
+
+			{% endif %}
+			<button>S'inscrire</button>
+
+			<p class="links">Vous avez déjà un compte ?<br> Connectez-vous</p>
+			<div class="redirect">
+				<a href="/login?user=entreprise">Espace Entreprise</a>
+				<p>
+					/
+				</p>
+				<a href="/login?user=employe">Espace Personnel</a>
+			</div>
+
+		</form>
+	</main>
+{% endblock %}

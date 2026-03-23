@@ -1,0 +1,40 @@
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;       /* tout l'écran */
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Header et footer restent fixes en haut et bas */
+header, footer {
+    flex-shrink: 0;
+}
+
+
+.page {
+    display: flex;           /* sidebar et main côte à côte */
+    flex: 1;                 /* prend tout l’espace entre header et footer */
+    min-height: 0;           /* permet au main de scroller si besoin */
+}
+
+/* Main */
+.page > main {
+    flex: 1;                 /* prend l’espace restant */
+    min-height: 0;           /* important pour que le contenu scrolle */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: #f5f5f5;
+    overflow: auto;          /* permet de scroller si le formulaire est grand */
+}
+
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .page > main {
+        padding: 10px;
+    }
+}
