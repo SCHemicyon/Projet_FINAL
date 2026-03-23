@@ -20,6 +20,6 @@ app.use("/employees", employeeRouter)
 app.use("/fleet", carRouter)
 
 
-app.listen(3000, ()=>{
-    console.log("ecoute sur le port 3000");
+app.listen(process.env.PORT, ()=>{
+    console.log("ecoute sur le port"+ process.env.PORT);
 })
