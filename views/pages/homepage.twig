@@ -1,0 +1,81 @@
+{% extends "../layouts/base.twig" %}
+{% block title %}
+	<title>{{title}}</title>
+{% endblock %}
+
+{% block style %}
+	<link rel="stylesheet" href="/assets/css/homepage.css">
+	<link rel="stylesheet" href="/assets/css/navbar.css">
+
+{% endblock %}
+
+{% block main %}
+	<main>
+
+
+		<section class="hero">
+
+			<div class="hero-content">
+
+
+				<h1>
+					Construisez votre Roster
+					<br>
+					<span class="second-line">Coordonnez vos groupes</span>
+					<br>
+					<span class="third-line">Planifiez vos stratégies</span>
+				</h1>
+
+				<p>
+					Créez vos compositions de raid et de Mythic+ en quelques secondes. Connectez votre compte Battle.net pour synchroniser vos personnages, vos guildes et débloquer toutes les fonctionnalités avancées.
+				</p>
+
+				<div class="hero-actions">
+					<a href="/auth/bnet" class="btn btn-secondary">
+						Connexion Battle.net
+					</a>
+					<a href="/builder" class="btn btn-primary">
+						Accéder au Builder
+					</a>
+					<a href="/planner" class="btn btn-primary">
+						Accéder au Planner
+					</a>
+
+
+				</div>
+
+			</div>
+
+		</section>
+
+		<section class="features">
+
+			<article class="feature">
+				<h2>Builder intuitif</h2>
+
+				<p>
+					Créez rapidement vos compositions de raid et visualisez instantanément les forces et faiblesses de votre groupe.
+				</p>
+			</article>
+
+			<article class="feature">
+				<h2>Synchronisation Battle.net</h2>
+
+				<p>
+					Créez votre Roster et partagez le à l'ensemble de votre Guilde.
+				</p>
+			</article>
+
+			<article class="feature">
+				<h2>Supervision du Roster</h2>
+
+				<p>
+					Consultez la progression des joueurs et leurs équipements afin de préparer au mieux chaque activité.
+				</p>
+			</article>
+
+		</section>
+
+
+	</main>
+{% endblock %}

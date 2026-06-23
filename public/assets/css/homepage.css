@@ -1,0 +1,149 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+
+main {
+    /* flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 20px; */
+    background-color: #f5f5f5;
+    /* gris clair pour différencier du header/footer */
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(rgba(0, 0, 0, 0.8),
+            rgba(0, 0, 0, 0.8)), url("../img/login-bg3.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* couvre tout l'écran */
+    background-position: center;
+    color: white;
+    /* filter:
+        brightness(.35)
+        contrast(1.1)
+        saturate(1.15); */
+}
+
+
+
+.hero {
+    min-height: 59vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    /* padding: 2rem 2rem; */
+}
+
+.hero-content {
+    max-width: 1200px;
+}
+
+
+.hero h1 {
+    font-size: clamp(2rem, 3vw, 3rem);
+
+    line-height: 1;
+    font-weight: 800;
+
+    margin-bottom: 1.5rem;
+}
+
+.hero h1 .second-line{
+font-size: clamp(2rem, 2.5vw, 2.5rem);
+}
+
+.hero h1 .third-line{
+    font-size: clamp(2rem, 2.5vw, 2.5rem);
+}
+
+.hero p {
+    max-width: 700px;
+
+    margin: auto;
+
+    font-size: 1.1rem;
+    line-height: 1.8;
+
+    opacity: .85;
+}
+
+.hero-actions {
+    margin-top: 3rem;
+
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 1rem 1.75rem;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: .2s;
+}
+
+.btn-primary {
+    background: #eb622b;
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    border: 1px solid rgba(255, 255, 255, .15);
+
+    color: white;
+
+    background: #00AEFF;
+
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+}
+
+.features {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(280px, 1fr));
+
+    gap: 2rem;
+
+    padding: 2rem 2rem;
+}
+
+.feature {
+    background: rgba(255, 255, 255, .15);
+
+    border: 1px solid rgba(255, 255, 255, .08);
+
+    border-radius: 16px;
+
+    padding: 1rem;
+}
+
+.feature h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #eb622b;
+}
+
+.feature p {
+    text-align: center;
+    opacity: .8;
+    line-height: 1.2;
+}

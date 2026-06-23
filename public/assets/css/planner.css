@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+.planner-page{
+    min-height:calc(100vh - 180px);
+    padding:2rem;
+    background:#101010;
+    background-image:url("/assets/img/wow-bg.webp");
+    color:white;
+    font-family:'Montserrat',sans-serif;
+}
+
+.planner-page h1{
+    color:#eb622b;
+    margin-bottom:1.5rem;
+}
+
+/* ===================== */
+/* LAYOUT                */
+/* ===================== */
+
+.planner-layout{
+    display:grid;
+    grid-template-columns:320px 1fr;
+    gap:1.5rem;
+}
+
+/* ===================== */
+/* OUTILS                */
+/* ===================== */
+
+.planner-tools{
+    background:#181818;
+    border:1px solid #2a2a2a;
+    border-radius:14px;
+    padding:1.5rem;
+
+    display:flex;
+    flex-direction:column;
+    gap:1.25rem;
+}
+
+.planner-tool-section{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.75rem;
+}
+
+.planner-tool-section h2{
+    width:100%;
+    color:#eb622b;
+    margin-bottom:.25rem;
+    font-size:1.1rem;
+}
+
+.planner-icon-button{
+    width:56px;
+    height:56px;
+    padding:0;
+
+    border:1px solid #2a2a2a;
+    border-radius:8px;
+
+    background:#232323;
+
+    cursor:grab;
+    transition:.15s;
+}
+
+.planner-icon-button:hover{
+    border-color:#eb622b;
+    background:#2b2b2b;
+    transform:scale(1.05);
+}
+
+.planner-icon-button:active{
+    cursor:grabbing;
+}
+
+.planner-icon-button img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    pointer-events:none;
+}
+
+/* ===================== */
+/* BOARD                 */
+/* ===================== */
+
+.planner-board{
+    position:relative;
+    min-height:700px;
+
+    background:#181818;
+
+    border:1px solid #2a2a2a;
+    border-radius:14px;
+
+    overflow:hidden;
+}
+
+.planner-map{
+    width:100%;
+    height:100%;
+    min-height:700px;
+
+    display:block;
+
+    object-fit:cover;
+
+    user-select:none;
+    pointer-events:none;
+}
+
+/* ===================== */
+/* LAYER MARQUEURS       */
+/* ===================== */
+
+.planner-markers-layer{
+    position:absolute;
+    inset:0;
+
+    z-index:10;
+
+    min-height:700px;
+}
+
+/* ===================== */
+/* MARQUEURS             */
+/* ===================== */
+
+.planner-marker{
+    position:absolute;
+
+    width:48px;
+    height:48px;
+
+    transform:translate(-50%, -50%);
+
+    cursor:move;
+    user-select:none;
+
+    z-index:20;
+}
+
+.planner-marker img{
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+    pointer-events:none;
+}
+
+/* ===================== */
+/* ICONE EN DRAG         */
+/* ===================== */
+
+.planner-drag-ghost{
+    position:fixed;
+
+    width:48px;
+    height:48px;
+
+    transform:translate(-50%, -50%);
+
+    pointer-events:none;
+
+    z-index:9999;
+}
+
+.planner-drag-ghost img{
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+}
+
+.guild-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin-bottom: 1.5rem;
+}
+
+.guild-tab {
+    padding: .7rem 1rem;
+    border-radius: 8px;
+    background: #181818;
+    border: 1px solid #2a2a2a;
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.guild-tab.active,
+.guild-tab:hover {
+    background: #eb622b;
+}
+
+.planner-save-button {
+    width: 100%;
+    padding: .7rem 1rem;
+    border: none;
+    border-radius: 8px;
+    background: #eb622b;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.planner-save-button:hover {
+    filter: brightness(1.1);
+}
+
+#planner-save-feedback {
+    width: 100%;
+    color: #4caf50;
+    font-size: .9rem;
+    word-break: break-all;
+}
+
+/* ===================== */
+/* RESPONSIVE            */
+/* ===================== */
+
+@media (max-width:1100px){
+
+    .planner-layout{
+        grid-template-columns:1fr;
+    }
+
+    .planner-tools{
+        flex-direction:row;
+    }
+
+    .planner-tool-section{
+        flex:1;
+        min-width:220px;
+    }
+
+}

@@ -2,23 +2,67 @@
 	<link rel="stylesheet" href="/assets/css/header.css">
 {% endblock %}
 
-<header>
-	<div class="logo-container">
-		{# <img src="/assets/img/logo-cer-blanc-rouge.png" alt="logo CER"> #}
-	</div>
-	<div class="title-container">
-		<h1>ROSTERFORGE</h1>
-		<p>Organisez vos raids, maximisez votre temps de jeu</p>
-	</div>
+<header class="site-header">
 
+    <div class="header-left"></div>
 
-	{% if infos %}
-		<div class="infos-container">
-			<h3>{{infos.raisonSociale}}</h3>
-			<p>{{infos.siret}}</p>
-			<a href="/logout">Déconnexion</a>
-		</div>
-	{% endif %}
+    <div class="header-center">
 
+        <a href="/" class="site-logo">
+            ROSTER<span>FORGE</span>
+        </a>
+
+        <p class="site-subtitle">
+            Organisez vos raids, maximisez votre temps de jeu
+        </p>
+
+    </div>
+
+    <div class="header-right">
+
+        {% if user %}
+
+            <span class="header-battletag">
+                {{ user.battletag }}
+            </span>
+
+            <a
+                href="/auth/logout"
+                class="logout-link"
+            >
+                Déconnexion
+            </a>
+
+        {% endif %}
+
+    </div>
 
 </header>
+
+{% if user %}
+
+<nav class="main-nav">
+
+    <a href="/dashboard">
+        Dashboard
+    </a>
+
+	<a href="/roster">
+        Roster
+    </a>
+
+	<a href="/inspection">
+        Inspection
+    </a>
+
+    <a href="/builder">
+        Builder
+    </a>
+
+    <a href="/planner">
+        Planner
+    </a>
+
+</nav>
+
+{% endif %}

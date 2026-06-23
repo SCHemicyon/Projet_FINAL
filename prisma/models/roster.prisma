@@ -1,0 +1,11 @@
+model Roster {
+  id        Int      @id @default(autoincrement())
+  guildName String
+  realmName String?
+  realmSlug String?
+  createdAt DateTime @default(now())
+  savedBuilderData String? @db.Text
+  savedPlannerData String? @db.LongText
+
+  players RosterPlayer[]
+}

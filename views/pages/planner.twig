@@ -1,0 +1,166 @@
+{% extends "../layouts/base.twig" %}
+
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="/assets/css/planner.css">
+    <link rel="stylesheet" href="/assets/css/navbar.css">
+{% endblock %}
+
+{% block main %}
+
+<main class="planner-page">
+
+    <h1>Planner</h1>
+
+    {% if user and rosters.length > 0 %}
+
+        <div class="guild-tabs">
+
+            {% for roster in rosters %}
+
+                <a
+                    href="/planner?rosterId={{ roster.id }}"
+                    class="guild-tab {% if selectedRoster and selectedRoster.id == roster.id %}active{% endif %}"
+                >
+                    {{ roster.guildName }}
+                </a>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+    <section class="planner-layout">
+
+        <aside class="planner-tools">
+
+            <div class="planner-tool-section">
+
+                <h2>Partage</h2>
+
+                <button
+                    type="button"
+                    id="save-planner"
+                    class="planner-save-button"
+                >
+                    Copier / Sauvegarder
+                </button>
+
+                <div id="planner-save-feedback"></div>
+
+            </div>
+
+            <div class="planner-tool-section">
+
+                <h2>Marques</h2>
+
+                <button type="button" class="planner-icon-button" data-icon="/assets/icons/markers/skull.webp">
+                    <img src="/assets/icons/markers/skull.webp" alt="Crâne">
+                </button>
+
+                <button type="button" class="planner-icon-button" data-icon="/assets/icons/markers/cross.webp">
+                    <img src="/assets/icons/markers/cross.webp" alt="Croix">
+                </button>
+
+                <button type="button" class="planner-icon-button" data-icon="/assets/icons/markers/square.webp">
+                    <img src="/assets/icons/markers/square.webp" alt="Carré">
+                </button>
+
+                <button type="button" class="planner-icon-button" data-icon="/assets/icons/markers/moon.webp">
+                    <img src="/assets/icons/markers/moon.webp" alt="Lune">
+                </button>
+
+                <button type="button" class="planner-icon-button" data-icon="/assets/icons/markers/triangle.webp">
+                    <img src="/assets/icons/markers/triangle.webp" alt="Triangle">
+                </button>
+
+                <button type="button" class="planner-icon-button" data-icon="/assets/icons/markers/diamond.webp">
+                    <img src="/assets/icons/markers/diamond.webp" alt="Diamant">
+                </button>
+
+                <button type="button" class="planner-icon-button" data-icon="/assets/icons/markers/circle.webp">
+                    <img src="/assets/icons/markers/circle.webp" alt="Cercle">
+                </button>
+
+                <button type="button" class="planner-icon-button" data-icon="/assets/icons/markers/star.webp">
+                    <img src="/assets/icons/markers/star.webp" alt="Étoile">
+                </button>
+
+            </div>
+
+            <div class="planner-tool-section">
+
+                <h2>Rôles</h2>
+
+                <button type="button" class="planner-icon-button" data-icon="/assets/icons/roles/tank.svg">
+                    <img src="/assets/icons/roles/tank.svg" alt="Tank">
+                </button>
+
+                <button type="button" class="planner-icon-button" data-icon="/assets/icons/roles/heal.svg">
+                    <img src="/assets/icons/roles/heal.svg" alt="Heal">
+                </button>
+
+                <button type="button" class="planner-icon-button" data-icon="/assets/icons/roles/mdps.svg">
+                    <img src="/assets/icons/roles/mdps.svg" alt="DPS mêlée">
+                </button>
+
+                <button type="button" class="planner-icon-button" data-icon="/assets/icons/roles/rdps.svg">
+                    <img src="/assets/icons/roles/rdps.svg" alt="DPS distance">
+                </button>
+
+            </div>
+
+            <div class="planner-tool-section">
+
+                <h2>Boss</h2>
+
+                <button type="button" class="planner-icon-button" data-icon="/assets/icons/boss/averzian.webp">
+                    <img src="/assets/icons/boss/averzian.webp" alt="Boss">
+                </button>
+
+                <button type="button" class="planner-icon-button" data-icon="/assets/icons/boss/averzian-bigadd.webp">
+                    <img src="/assets/icons/boss/averzian-bigadd.webp" alt="Add">
+                </button>
+
+                <button type="button" class="planner-icon-button" data-icon="/assets/icons/boss/averzian-smalladd.png">
+                    <img src="/assets/icons/boss/averzian-smalladd.png" alt="AoE">
+                </button>
+
+                <button type="button" class="planner-icon-button" data-icon="/assets/icons/boss/averzian-ability1.png">
+                    <img src="/assets/icons/boss/averzian-ability1.png" alt="Soak">
+                </button>
+
+            </div>
+
+        </aside>
+
+        <section class="planner-board" id="planner-board">
+
+            <img
+                src="/assets/img/maps/map-averzian.png"
+                alt="Carte Averzian"
+                class="planner-map"
+                draggable="false"
+            >
+
+            <div id="planner-markers-layer" class="planner-markers-layer"></div>
+
+        </section>
+
+    </section>
+
+    <script>
+        window.IS_AUTHENTICATED = {{ user ? "true" : "false" }};
+        window.SELECTED_ROSTER_ID = {{ selectedRoster ? selectedRoster.id : "null" }};
+        window.SAVED_PLANNER_DATA = {{ selectedRoster and selectedRoster.savedPlannerData ? selectedRoster.savedPlannerData|json_encode|raw : "null" }};
+    </script>
+
+    <script src="/assets/js/planner.js"></script>
+
+</main>
+
+{% endblock %}

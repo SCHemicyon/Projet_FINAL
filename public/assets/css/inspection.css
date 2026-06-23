@@ -1,0 +1,109 @@
+.inspection-page {
+    min-height: calc(100vh - 180px);
+    padding: 2rem;
+    background: #101010;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    background-image: url("../img/wow-bg.webp");
+}
+
+.inspection-page h1 {
+    color: #eb622b;
+    margin-bottom: 1.5rem;
+}
+
+.guild-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin-bottom: 1.5rem;
+}
+
+.guild-tab {
+    padding: .7rem 1rem;
+    border-radius: 8px;
+    background: #181818;
+    border: 1px solid #2a2a2a;
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.guild-tab.active,
+.guild-tab:hover {
+    background: #eb622b;
+}
+
+.inspection-card {
+    background: #181818;
+    border: 1px solid #2a2a2a;
+    border-radius: 14px;
+    padding: 1.5rem;
+    overflow-x: auto;
+}
+
+.inspection-card h2 {
+    color: #eb622b;
+    margin-bottom: 1rem;
+}
+
+.inspection-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.inspection-table th,
+.inspection-table td {
+    padding: .85rem;
+    border-bottom: 1px solid #2a2a2a;
+    text-align: left;
+}
+
+.inspection-table th {
+    color: #eb622b;
+    font-size: .9rem;
+}
+
+.inspection-table th a {
+    color: #eb622b;
+    text-decoration: none;
+}
+
+.inspection-table tbody tr:hover {
+    background: #202020;
+}
+
+.player-cell {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.player-cell span {
+    color: #777;
+    font-size: .8rem;
+}
+
+
+.role-icon {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+}
+
+
+
+.empty {
+    color: #888;
+    padding: 1rem;
+}
+
+@media (max-width: 900px) {
+    .inspection-page {
+        padding: 1rem;
+    }
+
+    .inspection-table {
+        min-width: 850px;
+    }
+}

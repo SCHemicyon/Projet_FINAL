@@ -1,0 +1,135 @@
+{% extends "../layouts/base.twig" %}
+
+{% block title %}
+<title>{{ title }}</title>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="/assets/css/inspection.css">
+<link rel="stylesheet" href="/assets/css/navbar.css">
+{% endblock %}
+
+{% block main %}
+
+<main class="inspection-page">
+
+    <h1>Inspection</h1>
+
+    <div class="guild-tabs">
+
+        {% for roster in rosters %}
+
+            <a
+                href="/inspection?roster={{ roster.id }}"
+                class="guild-tab {% if selectedRoster and selectedRoster.id == roster.id %}active{% endif %}"
+            >
+                {{ roster.guildName }}
+            </a>
+
+        {% endfor %}
+
+    </div>
+
+    {% if selectedRoster %}
+
+        <section class="inspection-card">
+
+            <h2>
+                {{ selectedRoster.guildName }}
+            </h2>
+
+            <table class="inspection-table">
+
+                <thead>
+    <tr>
+
+        <th>
+            <a href="/inspection?roster={{ selectedRoster.id }}&sort=name&dir={% if sort == 'name' and dir == 'asc' %}desc{% else %}asc{% endif %}">
+                Joueur
+            </a>
+        </th>
+
+        <th>
+            <a href="/inspection?roster={{ selectedRoster.id }}&sort=ilvl&dir={% if sort == 'ilvl' and dir == 'asc' %}desc{% else %}asc{% endif %}">
+                iLvl
+            </a>
+        </th>
+
+        <th>
+            <a href="/inspection?roster={{ selectedRoster.id }}&sort=set&dir={% if sort == 'set' and dir == 'asc' %}desc{% else %}asc{% endif %}">
+                Set
+            </a>
+        </th>
+
+        <th>
+            <a href="/inspection?roster={{ selectedRoster.id }}&sort=mythic&dir={% if sort == 'mythic' and dir == 'asc' %}desc{% else %}asc{% endif %}">
+                Mythic+
+            </a>
+        </th>
+
+    </tr>
+</thead>
+
+                <tbody>
+
+    {% for player in players %}
+
+        <tr>
+
+            <td class="player-cell">
+
+                {% if player.roleIcon %}
+                    <img
+                        src="{{ player.roleIcon }}"
+                        alt=""
+                        class="role-icon"
+                    >
+                {% endif %}
+
+                <strong style="color: {{ player.classColor }}">
+                    {{ player.name }}
+                </strong>
+
+            </td>
+
+            <td>
+                {{ player.ilvl }}
+            </td>
+
+            <td>
+                {{ player.setPieces }} / 4
+            </td>
+
+            <td>
+                {{ player.mythicScore }}
+            </td>
+
+        </tr>
+
+    {% else %}
+
+        <tr>
+            <td colspan="4" class="empty">
+                Aucun joueur dans ce roster.
+            </td>
+        </tr>
+
+    {% endfor %}
+
+</tbody>
+
+            </table>
+
+        </section>
+
+    {% else %}
+
+        <p class="empty">
+            Aucun roster disponible.
+        </p>
+
+    {% endif %}
+
+</main>
+
+{% endblock %}

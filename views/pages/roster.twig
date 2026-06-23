@@ -1,0 +1,180 @@
+{% extends "../layouts/base.twig" %}
+
+{% block title %}
+	<title>{{ title }}</title>
+{% endblock %}
+
+{% block style %}
+	<link rel="stylesheet" href="/assets/css/roster.css">
+	<link rel="stylesheet" href="/assets/css/navbar.css">
+
+{% endblock %}
+
+{% block main %}
+
+	<main class="roster-page">
+
+		<h1>Roster</h1>
+
+		{% if error %}
+			<div class="roster-error">
+				{{ error }}
+			</div>
+		{% endif %}
+
+		<div class="guild-tabs">
+			{% for guild in guilds %}
+				<a href="/roster?guild={{ guild.name }}" class="guild-tab {% if selectedGuild and selectedGuild.name == guild.name %}active{% endif %}">
+					{{ guild.name }}
+				</a>
+			{% endfor %}
+		</div>
+
+		{% if selectedGuild %}
+
+			<section class="roster-layout">
+
+				<div class="roster-card">
+
+					<h2>
+						Roster -
+						{{ selectedGuild.name }}    <span class="roster-count">
+						{{ rosterPlayers.length }}
+						/ 30 joueurs
+					</span>
+					</h2>
+					
+
+					{% if rosterPlayers.length > 0 %}
+
+						{% for player in rosterPlayers %}
+
+							<article class="player-row">
+
+								{% if player.roleIcon %}
+									<img src="{{ player.roleIcon }}" alt="{{ player.roleName }}" class="roster-role-icon">
+								{% endif %}
+
+								<strong style="color: {{ player.classColor }}">
+									{{ player.name }}
+								</strong>
+
+								{% if player.specIcon %}
+									<img src="{{ player.specIcon }}" alt="{{ player.specName }}" class="roster-spec-icon">
+								{% endif %}
+
+								<span>
+									{{ player.className }}
+									{{ player.specName }}
+								</span>
+
+								<span>
+									{{ player.realmName }}
+								</span>
+
+								<form method="POST" action="/roster/remove">
+									<input type="hidden" name="playerId" value="{{ player.id }}">
+
+									<button>
+										Supprimer
+									</button>
+								</form>
+
+							</article>
+
+						{% endfor %}
+
+					{% else %}
+
+						<p class="empty">
+							Aucun joueur dans ce roster.
+						</p>
+
+					{% endif %}
+
+				</div>
+
+				<div class="roster-card">
+
+					<h2>
+						Ajouter un joueur
+					</h2>
+
+					{% if availablePlayers.length > 0 %}
+
+						{% for player in availablePlayers %}
+
+							<article class="player-row">
+
+								{% if player.roleIcon %}
+									<img src="{{ player.roleIcon }}" alt="{{ player.roleName }}" class="roster-role-icon">
+								{% endif %}
+
+								<strong style="color: {{ player.classColor }}">
+									{{ player.name }}
+								</strong>
+
+								{% if player.specIcon %}
+									<img src="{{ player.specIcon }}" alt="{{ player.specName }}" class="roster-spec-icon">
+								{% endif %}
+
+								<span>
+									{{ player.className }}
+									{{ player.specName }}
+								</span>
+
+								<span>
+									{{ player.realmName }}
+								</span>
+
+								<form method="POST" action="/roster/add">
+
+									<input type="hidden" name="guildName" value="{{ selectedGuild.name }}">
+
+									<input type="hidden" name="realmName" value="{{ selectedGuild.realm }}">
+
+									<input type="hidden" name="realmSlug" value="{{ selectedGuild.realmSlug }}">
+
+									<input type="hidden" name="characterId" value="{{ player.id }}">
+
+									<input type="hidden" name="specId" value="{{ player.specId }}">
+
+									<input type="hidden" name="name" value="{{ player.name }}">
+
+									<input type="hidden" name="characterRealmName" value="{{ player.realmName }}">
+
+									<input type="hidden" name="characterRealmSlug" value="{{ player.realmSlug }}">
+
+									<button {% if rosterPlayers.length >= 30 %}disabled{% endif %}>
+    Ajouter
+</button>
+
+								</form>
+
+							</article>
+
+						{% endfor %}
+
+					{% else %}
+
+						<p class="empty">
+							Tous les joueurs disponibles sont déjà dans le roster.
+						</p>
+
+					{% endif %}
+
+				</div>
+
+			</section>
+
+		{% else %}
+
+			<p class="empty">
+				Sélectionne une guilde.
+			</p>
+
+		{% endif %}
+
+	</main>
+
+{% endblock %}

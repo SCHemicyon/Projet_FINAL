@@ -1,0 +1,250 @@
+{% extends "../layouts/base.twig" %}
+
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="/assets/css/builder.css">
+    <link rel="stylesheet" href="/assets/css/navbar.css">
+{% endblock %}
+
+{% block main %}
+<main>
+
+
+<div class="builder">
+{% block content %}
+{% if user and rosters.length > 0 %}
+
+    <div class="guild-tabs">
+
+    {% for roster in rosters %}
+
+        <a
+            href="/builder?rosterId={{ roster.id }}"
+            class="guild-tab {% if selectedRoster and selectedRoster.id == roster.id %}active{% endif %}"
+        >
+            {{ roster.guildName }}
+        </a>
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
+    <div class="spec-picker">
+
+        {% for class in classes %}
+
+            <div
+                class="class-section"
+                style="border-color: {{ class.color }}"
+            >
+
+                <div class="spec-list">
+
+                    {% for spec in class.specs %}
+
+                        <button
+                            class="spec-button"
+
+                            data-class="{{ class.name }}"
+                            data-class-id="{{ class.id }}"
+                            data-class-color="{{ class.color }}"
+
+                            data-spec="{{ spec.name }}"
+                            data-spec-id="{{ spec.id }}"
+                            data-spec-icon="{{ spec.specIcon }}"
+
+                            data-role="{{ spec.role.name }}"
+                            data-role-icon="{{ spec.role.icon }}"
+                        >
+
+                            <img
+                                src="{{ spec.specIcon }}"
+                                alt="{{ spec.name }}"
+                                title="{{ class.name }} - {{ spec.name }}"
+                            >
+
+                        </button>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    <section class="raid">
+
+        <div class="groups-wrapper">
+
+            {% for i in 1..6 %}
+
+                <div class="group">
+
+                    <h3>
+                        Groupe {{ i }}
+                    </h3>
+
+                    <div class="group-slots">
+
+                        {% for j in 1..5 %}
+
+                            <div class="slot">
+                                Vide
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+            <button
+                id="toggle-extra-groups"
+                class="toggle-groups"
+            >
+                + Ajouter des groupes
+            </button>
+
+            <div
+                id="extra-groups"
+                class="extra-groups hidden"
+            >
+
+                {% for i in 7..8 %}
+
+                    <div class="group">
+
+                        <h3>
+                            Groupe {{ i }}
+                        </h3>
+
+                        <div class="group-slots">
+
+                            {% for j in 1..5 %}
+
+                                <div class="slot">
+                                    Vide
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        <aside class="raid-stats">
+
+            <div class="stats-card">
+
+                <h3>
+                    Composition
+                </h3>
+
+                <div id="tank-count">
+                    Tanks : 0
+                </div>
+
+                <div id="heal-count">
+                    Heals : 0
+                </div>
+
+                <div id="mdps-count">
+                    Mêlées : 0
+                </div>
+
+                <div id="rdps-count">
+                    Distances : 0
+                </div>
+
+            </div>
+
+            <div class="stats-card">
+
+                <h3>
+                    Classes
+                </h3>
+
+                <div id="class-counts"></div>
+
+            </div>
+
+        </aside>
+
+    </section>
+
+    <section class="raid-spells">
+
+        <div class="spell-category">
+
+            <h3>
+                Buffs
+            </h3>
+
+            <div
+                id="buff-spell-list"
+                class="spell-list"
+            ></div>
+
+        </div>
+
+        <div class="spell-category">
+
+            <h3>
+                Défensifs
+            </h3>
+
+            <div
+                id="defensive-spell-list"
+                class="spell-list"
+            ></div>
+
+        </div>
+
+        <div class="spell-category">
+
+            <h3>
+                Utilitaires
+            </h3>
+
+            <div
+                id="utility-spell-list"
+                class="spell-list"
+            ></div>
+
+        </div>
+
+    </section>
+
+</div>
+
+<script>
+    window.CLASSES = {{ classes|json_encode|raw }};
+    window.IS_AUTHENTICATED = {{ user ? "true" : "false" }};
+    window.SELECTED_ROSTER_ID = {{ selectedRoster ? selectedRoster.id : "null" }};
+    window.SAVED_BUILDER_DATA = {{ selectedRoster and selectedRoster.savedBuilderData ? selectedRoster.savedBuilderData|json_encode|raw : "null" }};
+</script>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/assets/js/builder.js"></script>
+{% endblock %}
+
+</main>
+{% endblock %}
+

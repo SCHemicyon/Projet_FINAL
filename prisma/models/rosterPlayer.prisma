@@ -1,0 +1,13 @@
+model RosterPlayer {
+  id          Int @id @default(autoincrement())
+  rosterId    Int
+
+  characterId Int?
+  specId      Int?
+
+  name        String
+  realmName   String
+  realmSlug   String
+
+  roster Roster @relation(fields: [rosterId], references: [id], onDelete: Cascade)
+}

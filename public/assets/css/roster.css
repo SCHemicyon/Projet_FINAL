@@ -1,0 +1,131 @@
+.roster-page {
+    min-height: calc(100vh - 180px);
+    padding: 2rem;
+    background: #101010;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    background-image: 
+        url("/assets/img/wow-bg.webp");
+}
+
+.roster-page h1 {
+    color: #eb622b;
+    margin-bottom: 1.5rem;
+}
+
+.guild-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin-bottom: 1.5rem;
+}
+
+.guild-tab {
+    padding: .7rem 1rem;
+    border-radius: 8px;
+    background: #181818;
+    border: 1px solid #2a2a2a;
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.guild-tab.active,
+.guild-tab:hover {
+    background: #eb622b;
+}
+
+.roster-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.roster-card {
+    background: #181818;
+    border: 1px solid #2a2a2a;
+    border-radius: 14px;
+    padding: 1.5rem;
+}
+
+.roster-card h2 {
+    color: #eb622b;
+    margin-bottom: 1rem;
+}
+
+.player-row {
+    display: grid;
+    grid-template-columns: 28px 1fr 32px 1.4fr 1fr auto;
+    align-items: center;
+    gap: .75rem;
+
+    padding: .75rem;
+    margin-bottom: .5rem;
+
+    background: #232323;
+    border-radius: 8px;
+}
+
+.roster-role-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.roster-spec-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.player-row button {
+    background: #eb622b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: .45rem .7rem;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.roster-error {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: rgba(255, 68, 68, .12);
+    border: 1px solid #ff4444;
+    color: #ff9999;
+    border-radius: 8px;
+}
+
+.empty {
+    color: #888;
+}
+
+@media (max-width: 1100px) {
+    .roster-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .player-row {
+        grid-template-columns: 28px 1fr auto;
+    }
+
+    .roster-spec-icon,
+    .player-row span:nth-of-type(1),
+    .player-row span:nth-of-type(2) {
+        display: none;
+    }
+}
+.roster-count {
+    color: #aaa;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-size: medium;
+}
+
+.player-row button:disabled {
+    background: #555;
+    cursor: not-allowed;
+    opacity: .6;
+}

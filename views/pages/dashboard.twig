@@ -1,0 +1,129 @@
+{% extends "../layouts/base.twig" %}
+
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="/assets/css/dashboard.css">
+    <link rel="stylesheet" href="/assets/css/navbar.css">
+{% endblock %}
+
+
+{% block main %}
+
+<main class="dashboard">
+
+    {% if error %}
+        <div class="dashboard-error">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <div class="dashboard-grid">
+
+        <section class="dashboard-card">
+
+            <h2>Mes personnages niveau 90</h2>
+
+            {% if characters.length > 0 %}
+
+                <div class="dashboard-list">
+
+                    {% for character in characters %}
+
+                        <article class="character-card">
+
+                            <h3 style="color: {{ character.classColor }}">
+                                {{ character.name }}
+                            </h3>
+
+                            <div class="character-meta">
+
+                                <span class="badge">
+                                    Royaume : {{ character.realm.name }}
+                                </span>
+
+                                <span class="badge">
+                                    Niveau : {{ character.level }}
+                                </span>
+
+                                {% if character.character_class %}
+    <span class="badge">
+        Classe : {{ character.character_class.name }}
+    </span>
+{% endif %}
+
+                                {% if character.guild %}
+                                    <span class="badge">
+                                        Guilde : {{ character.guild.name }}
+                                    </span>
+                                {% endif %}
+
+                            </div>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-state">
+                    Aucun personnage niveau 90 trouvé.
+                </div>
+
+            {% endif %}
+
+        </section>
+
+        <section class="dashboard-card">
+
+            <h2>Mes guildes</h2>
+
+            {% if guilds.length > 0 %}
+
+                <div class="dashboard-list">
+
+                    {% for guild in guilds %}
+
+                        <article class="guild-card">
+
+                            <h3>
+                                {{ guild.name }}
+                            </h3>
+
+                            <div class="guild-meta">
+
+                                <span class="badge">
+                                    Royaume : {{ guild.realm }}
+                                </span>
+
+                                <span class="badge">
+                                    Personnages : {{ guild.characters.length }}
+                                </span>
+
+                            </div>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-state">
+                    Aucune guilde trouvée.
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </div>
+
+</main>
+
+{% endblock %}
