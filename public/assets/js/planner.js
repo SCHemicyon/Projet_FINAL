@@ -193,9 +193,10 @@ function loadPlannerFromUrl() {
 }
 
 if (
+    window.IS_AUTHENTICATED &&
     window.SAVED_PLANNER_DATA &&
     !window.location.search.includes("planner=")
-) {
+){
     const url = new URL(window.location.href);
 
     url.searchParams.set(

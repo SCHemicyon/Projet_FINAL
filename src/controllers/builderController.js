@@ -1,10 +1,10 @@
 import { PrismaClient } from "../../prisma/generated/prisma/client.js";
 import { adapter } from "../../prisma/adapter.js";
-import { hashPasswordExtension } from "../../prisma/extensions/hashPasswordExtension.js";
+
 
 import { CLASSES } from "../wow/specData.js";
 
-const prisma = new PrismaClient({ adapter }).$extends(hashPasswordExtension)
+const prisma = new PrismaClient({ adapter })
 
 
 export const builder = async (req, res) => {

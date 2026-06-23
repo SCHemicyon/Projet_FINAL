@@ -1,6 +1,6 @@
 import express from "express"
 import {builder, saveBuilder} from "../controllers/builderController.js"
-import { authguard } from "../services/authguard.js"
+//import { authguard } from "../services/authguard.js"
 
 export const builderRouter = express.Router()
 

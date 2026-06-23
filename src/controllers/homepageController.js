@@ -1,10 +1,9 @@
 import { PrismaClient } from "../../prisma/generated/prisma/client.js";
 import { adapter } from "../../prisma/adapter.js";
-import { hashPasswordExtension } from "../../prisma/extensions/hashPasswordExtension.js";
-import bcrypt from "bcrypt"
 
 
-const prisma = new PrismaClient({ adapter }).$extends(hashPasswordExtension)
+
+const prisma = new PrismaClient({ adapter })
 
 export async function getHomepage(req, res) {
     if (req.session.user) {

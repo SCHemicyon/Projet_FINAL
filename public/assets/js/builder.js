@@ -545,6 +545,7 @@ if (toggleButton && extraGroups) {
 /* INIT                  */
 /* ===================== */
 if (
+    window.IS_AUTHENTICATED &&
     window.SAVED_BUILDER_DATA &&
     !window.location.search.includes("raid=")
 ) {

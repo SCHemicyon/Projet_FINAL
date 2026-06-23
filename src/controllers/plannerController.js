@@ -1,17 +1,21 @@
 import { PrismaClient } from "../../prisma/generated/prisma/client.js";
 import { adapter } from "../../prisma/adapter.js";
-import { hashPasswordExtension } from "../../prisma/extensions/hashPasswordExtension.js";
+
+
 
 const prisma = new PrismaClient({
     adapter
-}).$extends(hashPasswordExtension);
+})
 
 export const planner = async (req, res) => {
     const user = req.session.user || null;
 
-    const rosters = await prisma.roster.findMany({
-    });
+    if(!user){
+      
 
+    
+    } const rosters = await prisma.roster.findMany({
+    });
     const selectedRosterId =
         Number(req.query.rosterId) || rosters[0]?.id || null;
 
@@ -21,8 +25,8 @@ export const planner = async (req, res) => {
                 id: selectedRosterId
             }
         })
-        : null;
-
+        : null; 
+console.log("User :", user, "Rosters :",rosters, "selected :",selectedRoster)
     res.render("pages/planner.twig", {
         title: "Planner",
         user,
