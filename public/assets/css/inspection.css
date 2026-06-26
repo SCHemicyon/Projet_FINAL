@@ -1,10 +1,15 @@
 .inspection-page {
     min-height: calc(100vh - 180px);
     padding: 2rem;
+
     background: #101010;
+    background-image: url("../img/wow-bg.webp");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
     color: white;
     font-family: 'Montserrat', sans-serif;
-    background-image: url("../img/wow-bg.webp");
 }
 
 .inspection-page h1 {
@@ -12,21 +17,28 @@
     margin-bottom: 1.5rem;
 }
 
+/* Guildes */
+
 .guild-tabs {
     display: flex;
     flex-wrap: wrap;
     gap: .75rem;
-    margin-bottom: 1.5rem;
+
+    margin-bottom: 1rem;
 }
 
 .guild-tab {
     padding: .7rem 1rem;
+
     border-radius: 8px;
     background: #181818;
     border: 1px solid #2a2a2a;
+
     color: white;
     text-decoration: none;
     font-weight: 700;
+
+    transition: .15s;
 }
 
 .guild-tab.active,
@@ -34,11 +46,55 @@
     background: #eb622b;
 }
 
+/* Recherche */
+
+.inspection-search {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.inspection-search input {
+    display: block;
+
+    width: 320px;
+    max-width: 100%;
+
+    padding: .7rem .9rem;
+
+    background: #181818;
+    color: white;
+
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: .9rem;
+    font-weight: 700;
+
+    box-sizing: border-box;
+
+    transition: .2s;
+}
+
+.inspection-search input:focus {
+    border-color: #eb622b;
+}
+
+.inspection-search input::placeholder {
+    color: #777;
+}
+
+/* Carte */
+
 .inspection-card {
     background: #181818;
     border: 1px solid #2a2a2a;
     border-radius: 14px;
+
     padding: 1.5rem;
+
     overflow-x: auto;
 }
 
@@ -46,6 +102,8 @@
     color: #eb622b;
     margin-bottom: 1rem;
 }
+
+/* Tableau */
 
 .inspection-table {
     width: 100%;
@@ -55,7 +113,9 @@
 .inspection-table th,
 .inspection-table td {
     padding: .85rem;
+
     border-bottom: 1px solid #2a2a2a;
+
     text-align: left;
 }
 
@@ -84,26 +144,75 @@
     font-size: .8rem;
 }
 
-
 .role-icon {
     width: 26px;
     height: 26px;
     object-fit: contain;
 }
 
-
-
 .empty {
     color: #888;
     padding: 1rem;
 }
 
+/* Tablette */
+
 @media (max-width: 900px) {
+
     .inspection-page {
+        padding: 1rem;
+        background-attachment: scroll;
+    }
+
+    .guild-tabs {
+        justify-content: center;
+    }
+
+    .guild-tab {
+        flex: 1 1 auto;
+        text-align: center;
+    }
+
+    .inspection-search input {
+        width: 100%;
+        max-width: none;
+    }
+
+    .inspection-card {
         padding: 1rem;
     }
 
     .inspection-table {
-        min-width: 850px;
+        min-width: 650px;
     }
+
+}
+
+/* Mobile */
+
+@media (max-width: 520px) {
+
+    .inspection-card {
+        padding: .75rem;
+    }
+
+    .inspection-card h2 {
+        font-size: 1.2rem;
+    }
+
+    .inspection-table {
+        min-width: 560px;
+    }
+
+    .inspection-table th,
+    .inspection-table td {
+        padding: .7rem;
+        font-size: .9rem;
+    }
+
+    .role-icon {
+        width: 24px;
+        height: 24px;
+    }
+
 }

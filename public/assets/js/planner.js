@@ -1,3 +1,5 @@
+const board = document.getElementById("planner-board");
+const mapImage = document.querySelector(".planner-map");
 const markersLayer = document.getElementById("planner-markers-layer");
 const iconButtons = document.querySelectorAll(".planner-icon-button");
 const savePlannerButton = document.getElementById("save-planner");
@@ -5,6 +7,79 @@ const saveFeedback = document.getElementById("planner-save-feedback");
 
 let draggedIcon = null;
 let draggedMarker = null;
+
+function getCoverData() {
+    const boardRect = board.getBoundingClientRect();
+
+    const imageRatio = mapImage.naturalWidth / mapImage.naturalHeight;
+    const boardRatio = boardRect.width / boardRect.height;
+
+    let displayedWidth;
+    let displayedHeight;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    if (imageRatio > boardRatio) {
+        displayedHeight = boardRect.height;
+        displayedWidth = displayedHeight * imageRatio;
+        offsetX = (displayedWidth - boardRect.width) / 2;
+    } else {
+        displayedWidth = boardRect.width;
+        displayedHeight = displayedWidth / imageRatio;
+        offsetY = (displayedHeight - boardRect.height) / 2;
+    }
+
+    return {
+        boardRect,
+        displayedWidth,
+        displayedHeight,
+        offsetX,
+        offsetY
+    };
+}
+
+function imagePercentToBoardPosition(xPercent, yPercent) {
+    const cover = getCoverData();
+
+    return {
+        x: (xPercent / 100) * cover.displayedWidth - cover.offsetX,
+        y: (yPercent / 100) * cover.displayedHeight - cover.offsetY
+    };
+}
+
+function boardPositionToImagePercent(clientX, clientY) {
+    const cover = getCoverData();
+
+    const xInBoard = clientX - cover.boardRect.left;
+    const yInBoard = clientY - cover.boardRect.top;
+
+    let xPercent = ((xInBoard + cover.offsetX) / cover.displayedWidth) * 100;
+    let yPercent = ((yInBoard + cover.offsetY) / cover.displayedHeight) * 100;
+
+    xPercent = Math.max(0, Math.min(xPercent, 100));
+    yPercent = Math.max(0, Math.min(yPercent, 100));
+
+    return {
+        xPercent,
+        yPercent
+    };
+}
+
+function refreshMarkerPosition(marker) {
+    const xPercent = Number(marker.dataset.x);
+    const yPercent = Number(marker.dataset.y);
+
+    const position = imagePercentToBoardPosition(xPercent, yPercent);
+
+    marker.style.left = `${position.x}px`;
+    marker.style.top = `${position.y}px`;
+}
+
+function refreshAllMarkers() {
+    document.querySelectorAll(".planner-marker").forEach(marker => {
+        refreshMarkerPosition(marker);
+    });
+}
 
 iconButtons.forEach(button => {
     button.addEventListener("mousedown", event => {
@@ -16,9 +91,7 @@ iconButtons.forEach(button => {
         ghost.classList.add("planner-drag-ghost");
         ghost.id = "planner-drag-ghost";
 
-        ghost.innerHTML = `
-            <img src="${draggedIcon}" alt="">
-        `;
+        ghost.innerHTML = `<img src="${draggedIcon}" alt="">`;
 
         document.body.appendChild(ghost);
 
@@ -57,10 +130,13 @@ document.addEventListener("mouseup", event => {
             event.clientY <= rect.bottom;
 
         if (isInside) {
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
+            const position = boardPositionToImagePercent(event.clientX, event.clientY);
 
-            createMarker(draggedIcon, x, y);
+            createMarker(
+                draggedIcon,
+                position.xPercent,
+                position.yPercent
+            );
         }
 
         draggedIcon = null;
@@ -85,33 +161,28 @@ function moveGhost(event) {
 }
 
 function moveMarker(marker, event) {
-    const rect = markersLayer.getBoundingClientRect();
+    const position = boardPositionToImagePercent(event.clientX, event.clientY);
 
-    let x = event.clientX - rect.left;
-    let y = event.clientY - rect.top;
+    marker.dataset.x = position.xPercent;
+    marker.dataset.y = position.yPercent;
 
-    x = Math.max(24, Math.min(x, markersLayer.clientWidth - 24));
-    y = Math.max(24, Math.min(y, markersLayer.clientHeight - 24));
-
-    marker.style.left = `${x}px`;
-    marker.style.top = `${y}px`;
+    refreshMarkerPosition(marker);
 }
 
-function createMarker(icon, x, y) {
+function createMarker(icon, xPercent, yPercent) {
     const marker = document.createElement("div");
 
     marker.classList.add("planner-marker");
 
     marker.dataset.icon = icon;
+    marker.dataset.x = xPercent;
+    marker.dataset.y = yPercent;
 
-    marker.style.left = `${x}px`;
-    marker.style.top = `${y}px`;
-
-    marker.innerHTML = `
-        <img src="${icon}" alt="">
-    `;
+    marker.innerHTML = `<img src="${icon}" alt="">`;
 
     markersLayer.appendChild(marker);
+
+    refreshMarkerPosition(marker);
 }
 
 markersLayer.addEventListener("contextmenu", event => {
@@ -131,8 +202,8 @@ function getPlannerData() {
     return [...document.querySelectorAll(".planner-marker")].map(marker => {
         return {
             icon: marker.dataset.icon,
-            x: Number(marker.style.left.replace("px", "")),
-            y: Number(marker.style.top.replace("px", ""))
+            x: Number(marker.dataset.x),
+            y: Number(marker.dataset.y)
         };
     });
 }
@@ -214,7 +285,6 @@ if (savePlannerButton) {
 
         try {
             await navigator.clipboard.writeText(currentUrl);
-
             saveFeedback.textContent = "Lien copié";
         } catch {
             saveFeedback.textContent = currentUrl;
@@ -248,4 +318,14 @@ if (savePlannerButton) {
     });
 }
 
-loadPlannerFromUrl();
+if (mapImage.complete) {
+    loadPlannerFromUrl();
+    refreshAllMarkers();
+} else {
+    mapImage.addEventListener("load", () => {
+        loadPlannerFromUrl();
+        refreshAllMarkers();
+    });
+}
+
+window.addEventListener("resize", refreshAllMarkers);

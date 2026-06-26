@@ -26,7 +26,7 @@ export const planner = async (req, res) => {
             }
         })
         : null; 
-console.log("User :", user, "Rosters :",rosters, "selected :",selectedRoster)
+
     res.render("pages/planner.twig", {
         title: "Planner",
         user,

@@ -7,7 +7,6 @@
 {% block style %}
 	<link rel="stylesheet" href="/assets/css/roster.css">
 	<link rel="stylesheet" href="/assets/css/navbar.css">
-
 {% endblock %}
 
 {% block main %}
@@ -30,6 +29,14 @@
 			{% endfor %}
 		</div>
 
+		<div class="roster-search">
+			<input
+				type="text"
+				id="rosterSearch"
+				placeholder="Rechercher un joueur..."
+			>
+		</div>
+
 		{% if selectedGuild %}
 
 			<section class="roster-layout">
@@ -37,19 +44,20 @@
 				<div class="roster-card">
 
 					<h2>
-						Roster -
-						{{ selectedGuild.name }}    <span class="roster-count">
-						{{ rosterPlayers.length }}
-						/ 30 joueurs
-					</span>
+						Roster - {{ selectedGuild.name }}
+						<span class="roster-count">
+							{{ rosterPlayers.length }} / 30 joueurs
+						</span>
 					</h2>
-					
 
 					{% if rosterPlayers.length > 0 %}
 
 						{% for player in rosterPlayers %}
 
-							<article class="player-row">
+							<article
+								class="player-row"
+								data-search="{{ player.name }} {{ player.className }} {{ player.specName }} {{ player.realmName }}"
+							>
 
 								{% if player.roleIcon %}
 									<img src="{{ player.roleIcon }}" alt="{{ player.roleName }}" class="roster-role-icon">
@@ -64,8 +72,7 @@
 								{% endif %}
 
 								<span>
-									{{ player.className }}
-									{{ player.specName }}
+									{{ player.className }} {{ player.specName }}
 								</span>
 
 								<span>
@@ -104,7 +111,10 @@
 
 						{% for player in availablePlayers %}
 
-							<article class="player-row">
+							<article
+								class="player-row"
+								data-search="{{ player.name }} {{ player.className }} {{ player.specName }} {{ player.realmName }}"
+							>
 
 								{% if player.roleIcon %}
 									<img src="{{ player.roleIcon }}" alt="{{ player.roleName }}" class="roster-role-icon">
@@ -119,8 +129,7 @@
 								{% endif %}
 
 								<span>
-									{{ player.className }}
-									{{ player.specName }}
+									{{ player.className }} {{ player.specName }}
 								</span>
 
 								<span>
@@ -130,24 +139,17 @@
 								<form method="POST" action="/roster/add">
 
 									<input type="hidden" name="guildName" value="{{ selectedGuild.name }}">
-
 									<input type="hidden" name="realmName" value="{{ selectedGuild.realm }}">
-
 									<input type="hidden" name="realmSlug" value="{{ selectedGuild.realmSlug }}">
-
 									<input type="hidden" name="characterId" value="{{ player.id }}">
-
 									<input type="hidden" name="specId" value="{{ player.specId }}">
-
 									<input type="hidden" name="name" value="{{ player.name }}">
-
 									<input type="hidden" name="characterRealmName" value="{{ player.realmName }}">
-
 									<input type="hidden" name="characterRealmSlug" value="{{ player.realmSlug }}">
 
 									<button {% if rosterPlayers.length >= 30 %}disabled{% endif %}>
-    Ajouter
-</button>
+										Ajouter
+									</button>
 
 								</form>
 
@@ -176,5 +178,7 @@
 		{% endif %}
 
 	</main>
+
+	<script src="/assets/js/rosterSearch.js"></script>
 
 {% endblock %}

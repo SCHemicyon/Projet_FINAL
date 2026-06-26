@@ -1,135 +1,146 @@
 {% extends "../layouts/base.twig" %}
 
 {% block title %}
-<title>{{ title }}</title>
+	<title>{{ title }}</title>
 {% endblock %}
 
 {% block style %}
-<link rel="stylesheet" href="/assets/css/inspection.css">
-<link rel="stylesheet" href="/assets/css/navbar.css">
+	<link rel="stylesheet" href="/assets/css/inspection.css">
+	<link rel="stylesheet" href="/assets/css/navbar.css">
 {% endblock %}
 
 {% block main %}
 
 <main class="inspection-page">
 
-    <h1>Inspection</h1>
+	<h1>Inspection</h1>
 
-    <div class="guild-tabs">
+	<div class="guild-tabs">
 
-        {% for roster in rosters %}
+		{% for roster in rosters %}
 
-            <a
-                href="/inspection?roster={{ roster.id }}"
-                class="guild-tab {% if selectedRoster and selectedRoster.id == roster.id %}active{% endif %}"
-            >
-                {{ roster.guildName }}
-            </a>
+			<a
+				href="/inspection?roster={{ roster.id }}"
+				class="guild-tab {% if selectedRoster and selectedRoster.id == roster.id %}active{% endif %}"
+			>
+				{{ roster.guildName }}
+			</a>
 
-        {% endfor %}
+		{% endfor %}
 
-    </div>
+	</div>
 
-    {% if selectedRoster %}
+	<div class="inspection-search">
+		<input
+			type="text"
+			id="inspectionSearch"
+			placeholder="Rechercher un joueur..."
+		>
+	</div>
 
-        <section class="inspection-card">
+	{% if selectedRoster %}
 
-            <h2>
-                {{ selectedRoster.guildName }}
-            </h2>
+		<section class="inspection-card">
 
-            <table class="inspection-table">
+			<h2>
+				{{ selectedRoster.guildName }}
+			</h2>
 
-                <thead>
-    <tr>
+			<table class="inspection-table">
 
-        <th>
-            <a href="/inspection?roster={{ selectedRoster.id }}&sort=name&dir={% if sort == 'name' and dir == 'asc' %}desc{% else %}asc{% endif %}">
-                Joueur
-            </a>
-        </th>
+				<thead>
+					<tr>
+						<th>
+							<a href="/inspection?roster={{ selectedRoster.id }}&sort=name&dir={% if sort == 'name' and dir == 'asc' %}desc{% else %}asc{% endif %}">
+								Joueur
+							</a>
+						</th>
 
-        <th>
-            <a href="/inspection?roster={{ selectedRoster.id }}&sort=ilvl&dir={% if sort == 'ilvl' and dir == 'asc' %}desc{% else %}asc{% endif %}">
-                iLvl
-            </a>
-        </th>
+						<th>
+							<a href="/inspection?roster={{ selectedRoster.id }}&sort=ilvl&dir={% if sort == 'ilvl' and dir == 'asc' %}desc{% else %}asc{% endif %}">
+								iLvl
+							</a>
+						</th>
 
-        <th>
-            <a href="/inspection?roster={{ selectedRoster.id }}&sort=set&dir={% if sort == 'set' and dir == 'asc' %}desc{% else %}asc{% endif %}">
-                Set
-            </a>
-        </th>
+						<th>
+							<a href="/inspection?roster={{ selectedRoster.id }}&sort=set&dir={% if sort == 'set' and dir == 'asc' %}desc{% else %}asc{% endif %}">
+								Set
+							</a>
+						</th>
 
-        <th>
-            <a href="/inspection?roster={{ selectedRoster.id }}&sort=mythic&dir={% if sort == 'mythic' and dir == 'asc' %}desc{% else %}asc{% endif %}">
-                Mythic+
-            </a>
-        </th>
+						<th>
+							<a href="/inspection?roster={{ selectedRoster.id }}&sort=mythic&dir={% if sort == 'mythic' and dir == 'asc' %}desc{% else %}asc{% endif %}">
+								Mythic+
+							</a>
+						</th>
+					</tr>
+				</thead>
 
-    </tr>
-</thead>
+				<tbody>
 
-                <tbody>
+					{% for player in players %}
 
-    {% for player in players %}
+						<tr
+							class="inspection-row"
+							data-search="{{ player.name }} {{ player.ilvl }} {{ player.setPieces }} {{ player.mythicScore }}"
+						>
 
-        <tr>
+							<td class="player-cell">
 
-            <td class="player-cell">
+								{% if player.roleIcon %}
+									<img
+										src="{{ player.roleIcon }}"
+										alt=""
+										class="role-icon"
+									>
+								{% endif %}
 
-                {% if player.roleIcon %}
-                    <img
-                        src="{{ player.roleIcon }}"
-                        alt=""
-                        class="role-icon"
-                    >
-                {% endif %}
+								<strong style="color: {{ player.classColor }}">
+									{{ player.name }}
+								</strong>
 
-                <strong style="color: {{ player.classColor }}">
-                    {{ player.name }}
-                </strong>
+							</td>
 
-            </td>
+							<td>
+								{{ player.ilvl }}
+							</td>
 
-            <td>
-                {{ player.ilvl }}
-            </td>
+							<td>
+								{{ player.setPieces }} / 4
+							</td>
 
-            <td>
-                {{ player.setPieces }} / 4
-            </td>
+							<td>
+								{{ player.mythicScore }}
+							</td>
 
-            <td>
-                {{ player.mythicScore }}
-            </td>
+						</tr>
 
-        </tr>
+					{% else %}
 
-    {% else %}
+						<tr>
+							<td colspan="4" class="empty">
+								Aucun joueur dans ce roster.
+							</td>
+						</tr>
 
-        <tr>
-            <td colspan="4" class="empty">
-                Aucun joueur dans ce roster.
-            </td>
-        </tr>
+					{% endfor %}
 
-    {% endfor %}
+				</tbody>
 
-</tbody>
+			</table>
 
-            </table>
+		</section>
 
-        </section>
+	{% else %}
 
-    {% else %}
+		<p class="empty">
+			Aucun roster disponible.
+		</p>
 
-        <p class="empty">
-            Aucun roster disponible.
-        </p>
-
-    {% endif %}
+	{% endif %}
 
 </main>
+
+<script src="/assets/js/inspectionSearch.js"></script>
 
 {% endblock %}
